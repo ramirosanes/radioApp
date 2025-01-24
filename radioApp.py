@@ -68,16 +68,16 @@ class radioApp(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.double_station = double_station = False
-        self.station2 = station2 = -400000 if double_station == 1 else 0
-        self.station1 = station1 = 400000 if double_station == 1 else 0
+        self.station2 = station2 = 0
+        self.station1 = station1 = 0
         self.samp_rate = samp_rate = 2560000
         self.rootdir = rootdir = str(os.path.expanduser("~")+"/")
         self.rfGain = rfGain = 25
         self.record_file_path = record_file_path = "/Documents/UBA/proyectoSDR/flowgraphs/recordings/"
-        self.centerFreq = centerFreq = 94300000
+        self.centerFreq = centerFreq = 94.3e6
+        self.variable_0 = variable_0 = 0
         self.timestamp = timestamp = datetime.fromtimestamp(time.time()).strftime('%Y_%m_%d_%H:%M:%S')
-        self.taps = taps = firdes.low_pass(1.0, samp_rate, 100000,10000, window.WIN_HAMMING, 6.76)
+        self.taps = taps = firdes.low_pass(1.0, samp_rate, 200e3,50e3, window.WIN_HAMMING, 6.76)
         self.rec_button = rec_button = 0
         self.filename = filename = rootdir+record_file_path+"_"+"Station1:"+str(int(centerFreq+station1))+"Hz_""Station2:"+str(int(centerFreq+station2))+"Hz_"+str(int(samp_rate))+"sps_"+str(rfGain)+"dB_"
 
@@ -85,25 +85,14 @@ class radioApp(gr.top_block, Qt.QWidget):
         # Blocks
         ##################################################
 
-        self._double_station_choices = {'Pressed': 1, 'Released': 0}
-
-        _double_station_toggle_button = qtgui.ToggleButton(self.set_double_station, 'double_station', self._double_station_choices, False, 'value')
-        _double_station_toggle_button.setColors("green", "default", "red", "default")
-        self.double_station = _double_station_toggle_button
-
-        self.top_grid_layout.addWidget(_double_station_toggle_button, 4, 0, 1, 1)
-        for r in range(4, 5):
-            self.top_grid_layout.setRowStretch(r, 1)
-        for c in range(0, 1):
-            self.top_grid_layout.setColumnStretch(c, 1)
-        self._station2_range = qtgui.Range(-1200000, 1200000, 200000, -400000 if double_station == 1 else 0, 200)
+        self._station2_range = qtgui.Range(-1200000, 1200000, 400e3, 0, 200)
         self._station2_win = qtgui.RangeWidget(self._station2_range, self.set_station2, "'station2'", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_grid_layout.addWidget(self._station2_win, 3, 0, 1, 1)
         for r in range(3, 4):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self._station1_range = qtgui.Range(-1200000, 1200000, 200000, 400000 if double_station == 1 else 0, 200)
+        self._station1_range = qtgui.Range(-1200000, 1200000, 400000, 0, 200)
         self._station1_win = qtgui.RangeWidget(self._station1_range, self.set_station1, "'station1'", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_grid_layout.addWidget(self._station1_win, 2, 0, 1, 1)
         for r in range(2, 3):
@@ -123,12 +112,12 @@ class radioApp(gr.top_block, Qt.QWidget):
         _rec_button_toggle_button.setColors("green", "default", "red", "default")
         self.rec_button = _rec_button_toggle_button
 
-        self.top_grid_layout.addWidget(_rec_button_toggle_button, 5, 0, 1, 1)
-        for r in range(5, 6):
+        self.top_grid_layout.addWidget(_rec_button_toggle_button, 4, 0, 1, 1)
+        for r in range(4, 5):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self._centerFreq_range = qtgui.Range(88300000, 108900000, 200000, 94300000, 200)
+        self._centerFreq_range = qtgui.Range(88.3e6, 108.9e6, 400e3, 94.3e6, 200)
         self._centerFreq_win = qtgui.RangeWidget(self._centerFreq_range, self.set_centerFreq, "'centerFreq'", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_grid_layout.addWidget(self._centerFreq_win, 1, 0, 1, 1)
         for r in range(1, 2):
@@ -237,14 +226,6 @@ class radioApp(gr.top_block, Qt.QWidget):
 
         event.accept()
 
-    def get_double_station(self):
-        return self.double_station
-
-    def set_double_station(self, double_station):
-        self.double_station = double_station
-        self.set_station1(400000 if self.double_station == 1 else 0)
-        self.set_station2(-400000 if self.double_station == 1 else 0)
-
     def get_station2(self):
         return self.station2
 
@@ -267,7 +248,7 @@ class radioApp(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.set_filename(self.rootdir+self.record_file_path+"_"+"Station1:"+str(int(self.centerFreq+self.station1))+"Hz_""Station2:"+str(int(self.centerFreq+self.station2))+"Hz_"+str(int(self.samp_rate))+"sps_"+str(self.rfGain)+"dB_")
-        self.set_taps(firdes.low_pass(1.0, self.samp_rate, 100000, 10000, window.WIN_HAMMING, 6.76))
+        self.set_taps(firdes.low_pass(1.0, self.samp_rate, 200e3, 50e3, window.WIN_HAMMING, 6.76))
         self.qtgui_waterfall_sink_x_0.set_frequency_range(0, self.samp_rate)
         self.rtlsdr_source_0.set_sample_rate(self.samp_rate)
 
@@ -300,6 +281,12 @@ class radioApp(gr.top_block, Qt.QWidget):
         self.centerFreq = centerFreq
         self.set_filename(self.rootdir+self.record_file_path+"_"+"Station1:"+str(int(self.centerFreq+self.station1))+"Hz_""Station2:"+str(int(self.centerFreq+self.station2))+"Hz_"+str(int(self.samp_rate))+"sps_"+str(self.rfGain)+"dB_")
         self.rtlsdr_source_0.set_center_freq(self.centerFreq, 0)
+
+    def get_variable_0(self):
+        return self.variable_0
+
+    def set_variable_0(self, variable_0):
+        self.variable_0 = variable_0
 
     def get_timestamp(self):
         return self.timestamp

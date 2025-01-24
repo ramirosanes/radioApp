@@ -1,6 +1,6 @@
 options:
   parameters:
-    author: pi
+    author: rami
     catch_exceptions: 'True'
     category: '[GRC Hier Blocks]'
     cmake_opt: ''
@@ -11,7 +11,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: radioApp
+    id: listenAM
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -22,7 +22,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: radioApp
+    title: Not titled yet
     window_size: (1000,1000)
   states:
     bus_sink: false
@@ -37,21 +37,21 @@ blocks:
   id: variable_qtgui_range
   parameters:
     comment: ''
-    gui_hint: 1,0,1,1
+    gui_hint: ''
     label: ''
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
-    start: 88.3e6
-    step: 400e3
-    stop: 108.9e6
-    value: 94.3e6
+    start: 570e3+offset
+    step: 40e3
+    stop: 1450e3+offset
+    value: 1090e3+offset
     widget: counter_slider
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [392, 8.0]
+    coordinate: [376, 12.0]
     rotation: 0
     state: true
 - name: filename
@@ -60,12 +60,24 @@ blocks:
     comment: 'creates full path to recordings
 
       and adds timestamp'
-    value: rootdir+record_file_path+"_"+"Station1:"+str(int(centerFreq+station1))+"Hz_""Station2:"+str(int(centerFreq+station2))+"Hz_"+str(int(samp_rate))+"sps_"+str(rfGain)+"dB_"
+    value: rootdir+record_file_path+"_"+"Station1:"+str(int(centerFreq+station1-125e6))+"Hz_""Station2:"+str(int(centerFreq+station2-125e6))+"Hz_"+str(int(samp_rate))+"sps_"
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 520.0]
+    coordinate: [24, 736.0]
+    rotation: 0
+    state: enabled
+- name: offset
+  id: variable
+  parameters:
+    comment: ''
+    value: 125e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [272, 12.0]
     rotation: 0
     state: enabled
 - name: rec_button
@@ -88,7 +100,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [736, 8.0]
+    coordinate: [896, 8.0]
     rotation: 0
     state: enabled
 - name: record_file_path
@@ -100,30 +112,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 424.0]
+    coordinate: [24, 640.0]
     rotation: 0
     state: enabled
-- name: rfGain
-  id: variable_qtgui_range
-  parameters:
-    comment: ''
-    gui_hint: 0,0,1,1
-    label: RF Gain (dB)
-    min_len: '200'
-    orient: QtCore.Qt.Horizontal
-    rangeType: float
-    start: '0'
-    step: '0.1'
-    stop: '30'
-    value: '25'
-    widget: counter_slider
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [280, 8.0]
-    rotation: 0
-    state: true
 - name: rootdir
   id: variable
   parameters:
@@ -133,54 +124,54 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 328.0]
+    coordinate: [24, 544.0]
     rotation: 0
     state: enabled
 - name: samp_rate
   id: variable
   parameters:
     comment: ''
-    value: '2560000'
+    value: '1024000'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 12.0]
+    coordinate: [176, 12.0]
     rotation: 0
     state: enabled
 - name: station1
   id: variable_qtgui_range
   parameters:
     comment: ''
-    gui_hint: 2,0,1,1
+    gui_hint: ''
     label: ''
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
-    start: '-1200000'
-    step: '400000'
-    stop: '1200000'
+    start: -480e3
+    step: 40e3
+    stop: 360e3
     value: '0'
     widget: counter_slider
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 8.0]
+    coordinate: [520, 8.0]
     rotation: 0
     state: true
 - name: station2
   id: variable_qtgui_range
   parameters:
     comment: ''
-    gui_hint: 3,0,1,1
+    gui_hint: ''
     label: ''
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
-    start: '-1200000'
-    step: 400e3
-    stop: '1200000'
+    start: -480e3
+    step: 40e3
+    stop: 360e3
     value: '0'
     widget: counter_slider
   states:
@@ -190,22 +181,22 @@ blocks:
     coordinate: [632, 8.0]
     rotation: 0
     state: true
-- name: taps
+- name: taps_sca
   id: variable_low_pass_filter_taps
   parameters:
     beta: '6.76'
     comment: ''
-    cutoff_freq: 200e3
-    gain: '1.0'
-    samp_rate: samp_rate
+    cutoff_freq: '10000'
+    gain: '2'
+    samp_rate: '1920000'
     value: ''
-    width: 50e3
-    win: window.WIN_HAMMING
+    width: '40000'
+    win: window.WIN_KAISER
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [832, 412.0]
+    coordinate: [736, 4.0]
     rotation: 0
     state: true
 - name: timestamp
@@ -219,53 +210,87 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 216.0]
+    coordinate: [24, 432.0]
     rotation: 0
     state: enabled
-- name: variable_0
-  id: variable
-  parameters:
-    comment: ''
-    value: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [720, 528.0]
-    rotation: 0
-    state: enabled
-- name: analog_wfm_rcv_0
-  id: analog_wfm_rcv
+- name: analog_agc2_xx_0
+  id: analog_agc2_xx
   parameters:
     affinity: ''
     alias: ''
-    audio_decimation: '5'
+    attack_rate: 625e-6
     comment: ''
+    decay_rate: 10e-6
+    gain: '1.0'
+    max_gain: '65536'
     maxoutbuf: '0'
     minoutbuf: '0'
-    quad_rate: '256000'
+    reference: '1.0'
+    type: complex
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [856, 200.0]
+    coordinate: [560, 160.0]
     rotation: 0
     state: true
-- name: analog_wfm_rcv_0_0
-  id: analog_wfm_rcv
+- name: analog_agc2_xx_0_0
+  id: analog_agc2_xx
   parameters:
     affinity: ''
     alias: ''
-    audio_decimation: '5'
+    attack_rate: 625e-6
     comment: ''
+    decay_rate: 10e-6
+    gain: '1.0'
+    max_gain: '65536'
     maxoutbuf: '0'
     minoutbuf: '0'
-    quad_rate: '256000'
+    reference: '1.0'
+    type: complex
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [856, 320.0]
+    coordinate: [560, 280.0]
+    rotation: 0
+    state: true
+- name: analog_am_demod_cf_0
+  id: analog_am_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    audio_decim: '5'
+    audio_pass: 2e3
+    audio_stop: 9.5e3
+    chan_rate: '240000'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [880, 168.0]
+    rotation: 0
+    state: true
+- name: analog_am_demod_cf_0_0
+  id: analog_am_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    audio_decim: '5'
+    audio_pass: 2e3
+    audio_stop: 9.5e3
+    chan_rate: '240000'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [880, 288.0]
     rotation: 0
     state: true
 - name: blocks_wavfile_sink_0_0
@@ -288,49 +313,47 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1080, 232.0]
+    coordinate: [1080, 216.0]
     rotation: 0
     state: enabled
-- name: freq_xlating_fft_filter_ccc_0
-  id: freq_xlating_fft_filter_ccc
-  parameters:
-    affinity: ''
-    alias: ''
-    center_freq: station2
-    comment: ''
-    decim: '10'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    nthreads: '1'
-    samp_delay: '0'
-    samp_rate: samp_rate
-    taps: taps
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [608, 296.0]
-    rotation: 0
-    state: true
-- name: freq_xlating_fft_filter_ccc_0_0
-  id: freq_xlating_fft_filter_ccc
+- name: freq_xlating_fir_filter_xxx_0
+  id: freq_xlating_fir_filter_xxx
   parameters:
     affinity: ''
     alias: ''
     center_freq: station1
     comment: ''
-    decim: '10'
+    decim: '2'
     maxoutbuf: '0'
     minoutbuf: '0'
-    nthreads: '1'
-    samp_delay: '0'
     samp_rate: samp_rate
-    taps: taps
+    taps: taps_sca
+    type: ccc
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 176.0]
+    coordinate: [344, 168.0]
+    rotation: 0
+    state: true
+- name: freq_xlating_fir_filter_xxx_0_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: station2
+    comment: ''
+    decim: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    taps: taps_sca
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [344, 272.0]
     rotation: 0
     state: true
 - name: import_datetime
@@ -343,7 +366,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 160.0]
+    coordinate: [200, 376.0]
     rotation: 0
     state: enabled
 - name: import_os
@@ -356,7 +379,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 160.0]
+    coordinate: [24, 376.0]
     rotation: 0
     state: true
 - name: import_time
@@ -369,7 +392,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [88, 160.0]
+    coordinate: [104, 376.0]
     rotation: 0
     state: enabled
 - name: network_tcp_sink_0
@@ -387,7 +410,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1080, 152.0]
+    coordinate: [1096, 136.0]
     rotation: 0
     state: true
 - name: network_tcp_sink_0_0
@@ -405,7 +428,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1080, 368.0]
+    coordinate: [1096, 352.0]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0
@@ -439,8 +462,8 @@ blocks:
     fc: '0'
     fftsize: '1024'
     freqhalf: 'True'
-    grid: 'True'
-    gui_hint: 6,0,1,1
+    grid: 'False'
+    gui_hint: ''
     int_max: '10'
     int_min: '-140'
     label1: ''
@@ -466,7 +489,47 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 424.0]
+    coordinate: [344, 376.0]
+    rotation: 0
+    state: enabled
+- name: rational_resampler_xxx_0
+  id: rational_resampler_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decim: '32'
+    fbw: '0'
+    interp: '15'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    taps: '[]'
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [720, 168.0]
+    rotation: 0
+    state: true
+- name: rational_resampler_xxx_0_0
+  id: rational_resampler_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decim: '32'
+    fbw: '0'
+    interp: '15'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    taps: '[]'
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [720, 288.0]
     rotation: 0
     state: true
 - name: rtlsdr_source_0
@@ -676,7 +739,7 @@ blocks:
     freq7: 100e6
     freq8: 100e6
     freq9: 100e6
-    gain0: rfGain
+    gain0: '10'
     gain1: '10'
     gain10: '10'
     gain11: '10'
@@ -708,7 +771,7 @@ blocks:
     gain7: '10'
     gain8: '10'
     gain9: '10'
-    gain_mode0: 'False'
+    gain_mode0: 'True'
     gain_mode1: 'False'
     gain_mode10: 'False'
     gain_mode11: 'False'
@@ -823,19 +886,23 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [320, 188.0]
+    coordinate: [40, 116.0]
     rotation: 0
     state: enabled
 
 connections:
-- [analog_wfm_rcv_0, '0', blocks_wavfile_sink_0_0, '0']
-- [analog_wfm_rcv_0, '0', network_tcp_sink_0, '0']
-- [analog_wfm_rcv_0_0, '0', blocks_wavfile_sink_0_0, '1']
-- [analog_wfm_rcv_0_0, '0', network_tcp_sink_0_0, '0']
-- [freq_xlating_fft_filter_ccc_0, '0', analog_wfm_rcv_0_0, '0']
-- [freq_xlating_fft_filter_ccc_0_0, '0', analog_wfm_rcv_0, '0']
-- [rtlsdr_source_0, '0', freq_xlating_fft_filter_ccc_0, '0']
-- [rtlsdr_source_0, '0', freq_xlating_fft_filter_ccc_0_0, '0']
+- [analog_agc2_xx_0, '0', rational_resampler_xxx_0, '0']
+- [analog_agc2_xx_0_0, '0', rational_resampler_xxx_0_0, '0']
+- [analog_am_demod_cf_0, '0', blocks_wavfile_sink_0_0, '0']
+- [analog_am_demod_cf_0, '0', network_tcp_sink_0, '0']
+- [analog_am_demod_cf_0_0, '0', blocks_wavfile_sink_0_0, '1']
+- [analog_am_demod_cf_0_0, '0', network_tcp_sink_0_0, '0']
+- [freq_xlating_fir_filter_xxx_0, '0', analog_agc2_xx_0, '0']
+- [freq_xlating_fir_filter_xxx_0_0, '0', analog_agc2_xx_0_0, '0']
+- [rational_resampler_xxx_0, '0', analog_am_demod_cf_0, '0']
+- [rational_resampler_xxx_0_0, '0', analog_am_demod_cf_0_0, '0']
+- [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
+- [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0_0, '0']
 - [rtlsdr_source_0, '0', qtgui_waterfall_sink_x_0, '0']
 
 metadata:
