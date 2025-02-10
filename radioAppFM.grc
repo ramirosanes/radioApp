@@ -88,7 +88,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [736, 8.0]
+    coordinate: [848, 8.0]
     rotation: 0
     state: enabled
 - name: record_file_path
@@ -149,47 +149,77 @@ blocks:
     rotation: 0
     state: enabled
 - name: station1
-  id: variable_qtgui_range
+  id: variable_qtgui_chooser
   parameters:
     comment: ''
-    gui_hint: 2,0,1,1
+    gui_hint: ''
     label: ''
-    min_len: '200'
-    orient: QtCore.Qt.Horizontal
-    rangeType: float
-    start: '-1200000'
-    step: '400000'
-    stop: '1200000'
-    value: '0'
-    widget: counter_slider
+    label0: ''
+    label1: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    labels: '["La 88.3", "Oldies FM 90.3", "Radio Futura 91.1", "Zoe Gospel 91.5",
+      "Radio Disney 91.9", "Urbana 92.5", "Oceano 93.9", "Emisora del Sur 94.7", "Emisora
+      del Plata 95.5", "Emisora Alfa 96.3", "Babel 97.1", "M24 97.9", "Diamante 98.7",
+      "Emisora del Sol 99.5", "Aire 100.3", "La Voz 101.3", "Azul 101.9", "Latina
+      103.7", "Radio Cero 104.3", "Galaxia 105.9", "La Ley 106.7", "Uni Radio 107.7"]'
+    num_opts: '0'
+    option0: '0'
+    option1: '1'
+    option2: '2'
+    option3: '3'
+    option4: '4'
+    options: '[88.3e6, 90.3e6, 91.1e6, 91.5e6, 91.9e6, 92.5e6, 93.9e6, 94.7e6, 95.5e6,
+      96.3e6, 97.1e6, 97.9e6, 98.7e6, 99.5e6, 100.3e6, 101.3e6, 101.9e6, 103.7e6,
+      104.3e6, 105.9e6, 106.7e6, 107.7e6]'
+    orient: Qt.QVBoxLayout
+    type: real
+    value: 88.3e6
+    widget: combo_box
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 8.0]
+    coordinate: [520, 8.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: station2
-  id: variable_qtgui_range
+  id: variable_qtgui_chooser
   parameters:
     comment: ''
-    gui_hint: 3,0,1,1
+    gui_hint: ''
     label: ''
-    min_len: '200'
-    orient: QtCore.Qt.Horizontal
-    rangeType: float
-    start: '-1200000'
-    step: 400e3
-    stop: '1200000'
-    value: '0'
-    widget: counter_slider
+    label0: ''
+    label1: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    labels: '["La 88.3", "Oldies FM 90.3", "Radio Futura 91.1", "Zoe Gospel 91.5",
+      "Radio Disney 91.9", "Urbana 92.5", "Oceano 93.9", "Emisora del Sur 94.7", "Emisora
+      del Plata 95.5", "Emisora Alfa 96.3", "Babel 97.1", "M24 97.9", "Diamante 98.7",
+      "Emisora del Sol 99.5", "Aire 100.3", "La Voz 101.3", "Azul 101.9", "Latina
+      103.7", "Radio Cero 104.3", "Galaxia 105.9", "La Ley 106.7", "Uni Radio 107.7"]'
+    num_opts: '0'
+    option0: '0'
+    option1: '1'
+    option2: '2'
+    option3: '3'
+    option4: '4'
+    options: '[88.3e6, 90.3e6, 91.1e6, 91.5e6, 91.9e6, 92.5e6, 93.9e6, 94.7e6, 95.5e6,
+      96.3e6, 97.1e6, 97.9e6, 98.7e6, 99.5e6, 100.3e6, 101.3e6, 101.9e6, 103.7e6,
+      104.3e6, 105.9e6, 106.7e6, 107.7e6]'
+    orient: Qt.QVBoxLayout
+    type: real
+    value: 88.3e6
+    widget: combo_box
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 8.0]
+    coordinate: [680, 8.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: taps
   id: variable_low_pass_filter_taps
   parameters:
@@ -220,18 +250,6 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [8, 216.0]
-    rotation: 0
-    state: enabled
-- name: variable_0
-  id: variable
-  parameters:
-    comment: ''
-    value: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [720, 528.0]
     rotation: 0
     state: enabled
 - name: analog_wfm_rcv_0
@@ -296,7 +314,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    center_freq: station2
+    center_freq: station2-centerFreq
     comment: ''
     decim: '10'
     maxoutbuf: '0'
@@ -317,7 +335,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    center_freq: station1
+    center_freq: station1-centerFreq
     comment: ''
     decim: '10'
     maxoutbuf: '0'
@@ -676,7 +694,7 @@ blocks:
     freq7: 100e6
     freq8: 100e6
     freq9: 100e6
-    gain0: rfGain
+    gain0: '0'
     gain1: '10'
     gain10: '10'
     gain11: '10'

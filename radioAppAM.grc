@@ -54,6 +54,18 @@ blocks:
     coordinate: [376, 12.0]
     rotation: 0
     state: true
+- name: center_freq
+  id: variable
+  parameters:
+    comment: ''
+    value: 1e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [272, 80.0]
+    rotation: 0
+    state: enabled
 - name: filename
   id: variable
   parameters:
@@ -100,7 +112,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [896, 8.0]
+    coordinate: [1008, 8.0]
     rotation: 0
     state: enabled
 - name: record_file_path
@@ -140,63 +152,93 @@ blocks:
     rotation: 0
     state: enabled
 - name: station1
-  id: variable_qtgui_range
+  id: variable_qtgui_chooser
   parameters:
     comment: ''
     gui_hint: ''
     label: ''
-    min_len: '200'
-    orient: QtCore.Qt.Horizontal
-    rangeType: float
-    start: -480e3
-    step: 40e3
-    stop: 360e3
-    value: '0'
-    widget: counter_slider
+    label0: ''
+    label1: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    labels: '["Clarin 580", "Rural 610", "Clasica 650", "Sarandi 690", "Continente
+      730", "Oriental 770", "Espectador 810", "Carve 850", "Sport 890", "Monte Carlo
+      930", "Universal 970", "Deportiva 1010", "Uruguay 1050", "Maria 1090", "Nacional
+      1130", "Radiomundo 1170", "Centenario 1250", "Cultura 1290", "Fenix 1330", "La
+      R 1410", "America 1450"]'
+    num_opts: '0'
+    option0: '0'
+    option1: '1'
+    option2: '2'
+    option3: '3'
+    option4: '4'
+    options: '[580e3, 610e3, 650e3, 690e3 ,730e3, 770e3, 810e3, 850e3, 890e3, 930e3,
+      970e3, 1010e3, 1050e3, 1090e3, 1130e3, 1170e3, 1250e3, 1290e3, 1330e3, 1410e3,
+      1450e3]'
+    orient: Qt.QVBoxLayout
+    type: real
+    value: 580e3
+    widget: combo_box
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [520, 8.0]
+    coordinate: [528, 8.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: station2
-  id: variable_qtgui_range
+  id: variable_qtgui_chooser
   parameters:
     comment: ''
     gui_hint: ''
     label: ''
-    min_len: '200'
-    orient: QtCore.Qt.Horizontal
-    rangeType: float
-    start: -480e3
-    step: 40e3
-    stop: 360e3
-    value: '0'
-    widget: counter_slider
+    label0: ''
+    label1: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    labels: '["Clarin 580", "Rural 610", "Clasica 650", "Sarandi 690", "Continente
+      730", "Oriental 770", "Espectador 810", "Carve 850", "Sport 890", "Monte Carlo
+      930", "Universal 970", "Deportiva 1010", "Uruguay 1050", "Maria 1090", "Nacional
+      1130", "Radiomundo 1170", "Centenario 1250", "Cultura 1290", "Fenix 1330", "La
+      R 1410", "America 1450"]'
+    num_opts: '0'
+    option0: '0'
+    option1: '1'
+    option2: '2'
+    option3: '3'
+    option4: '4'
+    options: '[580e3, 610e3, 650e3, 690e3 ,730e3, 770e3, 810e3, 850e3, 890e3, 930e3,
+      970e3, 1010e3, 1050e3, 1090e3, 1130e3, 1170e3, 1250e3, 1290e3, 1330e3, 1410e3,
+      1450e3]'
+    orient: Qt.QVBoxLayout
+    type: real
+    value: 580e3
+    widget: combo_box
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 8.0]
+    coordinate: [688, 8.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: taps_sca
   id: variable_low_pass_filter_taps
   parameters:
     beta: '6.76'
     comment: ''
-    cutoff_freq: '10000'
+    cutoff_freq: 6e3
     gain: '2'
-    samp_rate: '1920000'
+    samp_rate: samp_rate
     value: ''
-    width: '40000'
+    width: 2e3
     win: window.WIN_KAISER
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [736, 4.0]
+    coordinate: [848, 4.0]
     rotation: 0
     state: true
 - name: timestamp
@@ -213,48 +255,6 @@ blocks:
     coordinate: [24, 432.0]
     rotation: 0
     state: enabled
-- name: analog_agc2_xx_0
-  id: analog_agc2_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    attack_rate: 625e-6
-    comment: ''
-    decay_rate: 10e-6
-    gain: '1.0'
-    max_gain: '65536'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    reference: '1.0'
-    type: complex
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [560, 160.0]
-    rotation: 0
-    state: true
-- name: analog_agc2_xx_0_0
-  id: analog_agc2_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    attack_rate: 625e-6
-    comment: ''
-    decay_rate: 10e-6
-    gain: '1.0'
-    max_gain: '65536'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    reference: '1.0'
-    type: complex
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [560, 280.0]
-    rotation: 0
-    state: true
 - name: analog_am_demod_cf_0
   id: analog_am_demod_cf
   parameters:
@@ -262,7 +262,7 @@ blocks:
     alias: ''
     audio_decim: '5'
     audio_pass: 2e3
-    audio_stop: 9.5e3
+    audio_stop: 5e3
     chan_rate: '240000'
     comment: ''
     maxoutbuf: '0'
@@ -271,7 +271,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 168.0]
+    coordinate: [760, 192.0]
     rotation: 0
     state: true
 - name: analog_am_demod_cf_0_0
@@ -281,7 +281,7 @@ blocks:
     alias: ''
     audio_decim: '5'
     audio_pass: 2e3
-    audio_stop: 9.5e3
+    audio_stop: 5e3
     chan_rate: '240000'
     comment: ''
     maxoutbuf: '0'
@@ -290,7 +290,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 288.0]
+    coordinate: [760, 312.0]
     rotation: 0
     state: true
 - name: blocks_wavfile_sink_0_0
@@ -313,7 +313,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1080, 216.0]
+    coordinate: [960, 240.0]
     rotation: 0
     state: enabled
 - name: freq_xlating_fir_filter_xxx_0
@@ -321,7 +321,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    center_freq: station1
+    center_freq: station1-center_freq
     comment: ''
     decim: '2'
     maxoutbuf: '0'
@@ -333,7 +333,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [344, 168.0]
+    coordinate: [320, 192.0]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0_0
@@ -341,7 +341,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    center_freq: station2
+    center_freq: station2-center_freq
     comment: ''
     decim: '2'
     maxoutbuf: '0'
@@ -353,7 +353,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [344, 272.0]
+    coordinate: [320, 296.0]
     rotation: 0
     state: true
 - name: import_datetime
@@ -410,7 +410,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1096, 136.0]
+    coordinate: [960, 168.0]
     rotation: 0
     state: true
 - name: network_tcp_sink_0_0
@@ -428,7 +428,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1096, 352.0]
+    coordinate: [960, 368.0]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0
@@ -489,7 +489,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [344, 376.0]
+    coordinate: [320, 400.0]
     rotation: 0
     state: enabled
 - name: rational_resampler_xxx_0
@@ -509,7 +509,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [720, 168.0]
+    coordinate: [600, 192.0]
     rotation: 0
     state: true
 - name: rational_resampler_xxx_0_0
@@ -529,7 +529,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [720, 288.0]
+    coordinate: [600, 312.0]
     rotation: 0
     state: true
 - name: rtlsdr_source_0
@@ -707,7 +707,7 @@ blocks:
     dc_offset_mode7: '0'
     dc_offset_mode8: '0'
     dc_offset_mode9: '0'
-    freq0: centerFreq
+    freq0: center_freq+offset
     freq1: 100e6
     freq10: 100e6
     freq11: 100e6
@@ -891,14 +891,12 @@ blocks:
     state: enabled
 
 connections:
-- [analog_agc2_xx_0, '0', rational_resampler_xxx_0, '0']
-- [analog_agc2_xx_0_0, '0', rational_resampler_xxx_0_0, '0']
 - [analog_am_demod_cf_0, '0', blocks_wavfile_sink_0_0, '0']
 - [analog_am_demod_cf_0, '0', network_tcp_sink_0, '0']
 - [analog_am_demod_cf_0_0, '0', blocks_wavfile_sink_0_0, '1']
 - [analog_am_demod_cf_0_0, '0', network_tcp_sink_0_0, '0']
-- [freq_xlating_fir_filter_xxx_0, '0', analog_agc2_xx_0, '0']
-- [freq_xlating_fir_filter_xxx_0_0, '0', analog_agc2_xx_0_0, '0']
+- [freq_xlating_fir_filter_xxx_0, '0', rational_resampler_xxx_0, '0']
+- [freq_xlating_fir_filter_xxx_0_0, '0', rational_resampler_xxx_0_0, '0']
 - [rational_resampler_xxx_0, '0', analog_am_demod_cf_0, '0']
 - [rational_resampler_xxx_0_0, '0', analog_am_demod_cf_0_0, '0']
 - [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
