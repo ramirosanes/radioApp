@@ -11,7 +11,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: listenAM
+    id: radioAppAM
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -22,7 +22,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: Not titled yet
+    title: radioAppAM
     window_size: (1000,1000)
   states:
     bus_sink: false
@@ -143,7 +143,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '1024000'
+    value: '2560000'
   states:
     bus_sink: false
     bus_source: false
@@ -271,7 +271,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [760, 192.0]
+    coordinate: [752, 192.0]
     rotation: 0
     state: true
 - name: analog_am_demod_cf_0_0
@@ -290,7 +290,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [760, 312.0]
+    coordinate: [752, 296.0]
     rotation: 0
     state: true
 - name: blocks_wavfile_sink_0_0
@@ -323,7 +323,7 @@ blocks:
     alias: ''
     center_freq: station1-center_freq
     comment: ''
-    decim: '2'
+    decim: '4'
     maxoutbuf: '0'
     minoutbuf: '0'
     samp_rate: samp_rate
@@ -343,7 +343,7 @@ blocks:
     alias: ''
     center_freq: station2-center_freq
     comment: ''
-    decim: '2'
+    decim: '4'
     maxoutbuf: '0'
     minoutbuf: '0'
     samp_rate: samp_rate
@@ -498,9 +498,9 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    decim: '32'
+    decim: '8'
     fbw: '0'
-    interp: '15'
+    interp: '3'
     maxoutbuf: '0'
     minoutbuf: '0'
     taps: '[]'
@@ -509,7 +509,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [600, 192.0]
+    coordinate: [560, 192.0]
     rotation: 0
     state: true
 - name: rational_resampler_xxx_0_0
@@ -518,9 +518,9 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    decim: '32'
+    decim: '8'
     fbw: '0'
-    interp: '15'
+    interp: '3'
     maxoutbuf: '0'
     minoutbuf: '0'
     taps: '[]'
@@ -529,7 +529,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [600, 312.0]
+    coordinate: [560, 296.0]
     rotation: 0
     state: true
 - name: rtlsdr_source_0
