@@ -235,7 +235,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [832, 412.0]
+    coordinate: [1008, 4.0]
     rotation: 0
     state: true
 - name: timestamp
@@ -261,12 +261,12 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    quad_rate: '256000'
+    quad_rate: '240000'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [856, 200.0]
+    coordinate: [856, 184.0]
     rotation: 0
     state: true
 - name: analog_wfm_rcv_0_0
@@ -278,12 +278,12 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    quad_rate: '256000'
+    quad_rate: '240000'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [856, 320.0]
+    coordinate: [856, 312.0]
     rotation: 0
     state: true
 - name: blocks_wavfile_sink_0_0
@@ -306,7 +306,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1080, 232.0]
+    coordinate: [1080, 240.0]
     rotation: 0
     state: enabled
 - name: freq_xlating_fft_filter_ccc_0
@@ -316,7 +316,7 @@ blocks:
     alias: ''
     center_freq: station2-centerFreq
     comment: ''
-    decim: '10'
+    decim: '4'
     maxoutbuf: '0'
     minoutbuf: '0'
     nthreads: '1'
@@ -327,7 +327,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 296.0]
+    coordinate: [464, 288.0]
     rotation: 0
     state: true
 - name: freq_xlating_fft_filter_ccc_0_0
@@ -337,7 +337,7 @@ blocks:
     alias: ''
     center_freq: station1-centerFreq
     comment: ''
-    decim: '10'
+    decim: '4'
     maxoutbuf: '0'
     minoutbuf: '0'
     nthreads: '1'
@@ -348,7 +348,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 176.0]
+    coordinate: [464, 160.0]
     rotation: 0
     state: true
 - name: import_datetime
@@ -405,7 +405,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1080, 152.0]
+    coordinate: [1080, 160.0]
     rotation: 0
     state: true
 - name: network_tcp_sink_0_0
@@ -423,7 +423,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1080, 368.0]
+    coordinate: [1080, 376.0]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0
@@ -484,9 +484,49 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 424.0]
+    coordinate: [464, 424.0]
     rotation: 0
     state: true
+- name: rational_resampler_xxx_0
+  id: rational_resampler_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decim: '8'
+    fbw: '0'
+    interp: '3'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    taps: '[]'
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [680, 168.0]
+    rotation: 0
+    state: enabled
+- name: rational_resampler_xxx_0_0
+  id: rational_resampler_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decim: '8'
+    fbw: '0'
+    interp: '3'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    taps: '[]'
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [688, 296.0]
+    rotation: 0
+    state: enabled
 - name: rtlsdr_source_0
   id: rtlsdr_source
   parameters:
@@ -841,7 +881,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [320, 188.0]
+    coordinate: [184, 220.0]
     rotation: 0
     state: enabled
 
@@ -850,8 +890,10 @@ connections:
 - [analog_wfm_rcv_0, '0', network_tcp_sink_0, '0']
 - [analog_wfm_rcv_0_0, '0', blocks_wavfile_sink_0_0, '1']
 - [analog_wfm_rcv_0_0, '0', network_tcp_sink_0_0, '0']
-- [freq_xlating_fft_filter_ccc_0, '0', analog_wfm_rcv_0_0, '0']
-- [freq_xlating_fft_filter_ccc_0_0, '0', analog_wfm_rcv_0, '0']
+- [freq_xlating_fft_filter_ccc_0, '0', rational_resampler_xxx_0_0, '0']
+- [freq_xlating_fft_filter_ccc_0_0, '0', rational_resampler_xxx_0, '0']
+- [rational_resampler_xxx_0, '0', analog_wfm_rcv_0, '0']
+- [rational_resampler_xxx_0_0, '0', analog_wfm_rcv_0_0, '0']
 - [rtlsdr_source_0, '0', freq_xlating_fft_filter_ccc_0, '0']
 - [rtlsdr_source_0, '0', freq_xlating_fft_filter_ccc_0_0, '0']
 - [rtlsdr_source_0, '0', qtgui_waterfall_sink_x_0, '0']
